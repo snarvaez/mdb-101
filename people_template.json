@@ -1,0 +1,22 @@
+{
+  "name": "$name",
+
+  "fav_villain": {"$choose": {"from": ["Thanos", "Venom", "Kingpin"]}},
+
+  "visited_countries": { "$array": {
+    "of": {
+      "$country": {"full": true}
+    },
+    "number": {"$number": { "min": 1, "max": 5}}
+    }
+  },
+
+  "fav_relatives": { "$array": {
+    "of": {
+      "name": "$name",
+      "relationship": {"$choose": {"from": ["sister", "brother", "cousin"]}}
+    },
+    "number": {"$number": { "min": 1, "max": 3}}
+    }
+  }
+}
