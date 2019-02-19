@@ -1,0 +1,39 @@
+cd mongo40
+
+mkdir -p ./data-rs0-0  ./data-rs0-1 ./data-rs0-2
+
+<new terminal window>
+cd RMOUG/mongo40/bin
+./mongod --replSet rs0 --port 27000 --dbpath ../data-rs0-0
+
+<new terminal window>
+cd RMOUG/mongo40/bin
+./mongod --replSet rs0 --port 27001 --dbpath ../data-rs0-1
+
+<new terminal window>
+cd RMOUG/mongo40/bin
+./mongod --replSet rs0 --port 27002 --dbpath ../data-rs0-2
+
+<new terminal window>
+cd RMOUG/mongo40/bin
+./mongo --port 27000
+
+rsconf = {
+  _id: "rs0",
+  members: [
+    { _id: 0, host: "localhost:27000" },
+    { _id: 1, host: "localhost:27001" },
+    { _id: 2, host: "localhost:27002" }
+   ]
+}
+
+rs.initiate( rsconf )
+
+rs.conf()
+
+Who is the primary?
+rs.status()
+
+Step down the primary - force an election
+rs.stepDown();
+rs.status()
